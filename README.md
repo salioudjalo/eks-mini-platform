@@ -12,3 +12,5 @@ docker build -t api:local ./app
 docker run --rm -p 8000:8000 api:local
 curl localhost:8000/healthz
 ```
+
+![Architecture Diagram](images/architecture-v1.png)
