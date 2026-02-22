@@ -8,14 +8,24 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
+  # Optional
+  endpoint_public_access = true
+
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = true
 
-  # Ensure critical addons exist and are healthy (fixes CNI not initialized)
+  # Install networking + core addons BEFORE node groups
   addons = {
-    vpc-cni    = { most_recent = true }
-    coredns    = { most_recent = true }
-    kube-proxy = { most_recent = true }
+    vpc-cni = {
+      before_compute              = true
+      resolve_conflicts_on_create = "OVERWRITE"
+    }
+    kube-proxy = {
+      before_compute = true
+    }
+    coredns = {
+      before_compute = true
+    }
   }
 
   # EC2 workers that run pods. This is what eks_managed_node_groups creates.
