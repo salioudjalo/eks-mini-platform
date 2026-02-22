@@ -11,6 +11,13 @@ module "eks" {
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = true
 
+  # Ensure critical addons exist and are healthy (fixes CNI not initialized)
+  addons = {
+    vpc-cni    = { most_recent = true }
+    coredns    = { most_recent = true }
+    kube-proxy = { most_recent = true }
+  }
+
   # EC2 workers that run pods. This is what eks_managed_node_groups creates.
   eks_managed_node_groups = {
     default = {
@@ -18,6 +25,8 @@ module "eks" {
       min_size       = 1
       max_size       = 2
       desired_size   = 1
+
+      iam_role_attach_cni_policy = true
     }
   }
 
