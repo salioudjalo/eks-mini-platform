@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: REPLACE_WITH_ECR_IMAGE:TAG
+          image: 387224041548.dkr.ecr.us-east-1.amazonaws.com/eks-mini-platform:dev
           ports:
             - containerPort: 8000
           env:
