@@ -21,7 +21,7 @@ A lightweight, production-minded AWS EKS project demonstrating how to provision 
 
 ## 🏗 Architecture
 
-![Architecture Diagram](images/architecture-v1.png)
+![Architecture Diagram](images/eks-platform.drawio.png)
 
 ---
 
